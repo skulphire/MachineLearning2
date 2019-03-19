@@ -63,34 +63,34 @@ class Network(nn.Module()):
 
         return t
 
-    def train(self):
-        model = Network()
-        opti = torch.optim.Adam(model.parameters(),lr = LR)
-        criterion = nn.CrossEntropyLoss()
-        for epoch in range(1,Train_epoch+1):
-            for batchID, (label,image) in enumerate(train_loader):
-                label,image = label.to(device), image.to(device)
-                output = model(image)
-                loss = criterion(output,label)
-                opti.zero_grad()
-                loss.backward()
-                opti.step()
-                if batchID % 1000 == 0:
-                    print('Loss :{:.4f} Epoch[{}/{}]'.format(loss.item(), epoch, Train_epoch))
-        return model
+def train():
+    model = Network()
+    opti = torch.optim.Adam(model.parameters(),lr = LR)
+    criterion = nn.CrossEntropyLoss()
+    for epoch in range(1,Train_epoch+1):
+        for batchID, (label,image) in enumerate(train_loader):
+            label,image = label.to(device), image.to(device)
+            output = model(image)
+            loss = criterion(output,label)
+            opti.zero_grad()
+            loss.backward()
+            opti.step()
+            if batchID % 1000 == 0:
+                print('Loss :{:.4f} Epoch[{}/{}]'.format(loss.item(), epoch, Train_epoch))
+    return model
 
-    def test(self, model):
-        with torch.no_grad():
-            correct = 0
-            total = 0
-            for label, image in test_loader:
-                image = image.to(device)
-                label = label.to(device)
-                outputs = model(image)
-                predicted = torch.argmax(outputs,dim=1)
-                total += label.size(0)
-                correct += (predicted == label).sum().item()
-                print('Test Accuracy of the model on the test images: {} %'.format(100 * correct / total))
+def test(model):
+    with torch.no_grad():
+        correct = 0
+        total = 0
+        for label, image in test_loader:
+            image = image.to(device)
+            label = label.to(device)
+            outputs = model(image)
+            predicted = torch.argmax(outputs,dim=1)
+            total += label.size(0)
+            correct += (predicted == label).sum().item()
+            print('Test Accuracy of the model on the test images: {} %'.format(100 * correct / total))
 
     if __name__ == '__main__':
         model = train()
