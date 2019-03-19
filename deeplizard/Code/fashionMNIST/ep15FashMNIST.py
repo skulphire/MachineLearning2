@@ -4,17 +4,6 @@ import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.nn.functional as F
 
-train_set = torchvision.datasets.FashionMNIST(root='./data/FashionMNIST',
-                                              train=True,download=True,
-                                              transform=transforms.Compose(transforms.ToTensor()))
-test_set = torchvision.datasets.FashionMNIST(root='./data/test/FashionMNIST',
-                                              train=False,download=True,
-                                              transform=transforms.Compose(transforms.ToTensor()))
-train_loader = torch.utils.data.DataLoader(train_set,batch_size=10,shuffle=False)
-test_loader = torch.utils.data.DataLoader(test_set,batch_size = 10,shuffle=False)
-
-batch = next(iter(train_loader))
-
 LR = 0.005 #learning rate
 Train_epoch = 5
 
@@ -28,10 +17,6 @@ CLASS_CLOTHING = {0 :'T-shirt/top',
                   7 :'Sneaker',
                   8 :'Bag',
                   9 :'Ankle boot'}
-
-images, labels = batch #features and labels
-#images.shape = [10,1,28,28]
-#labels.shape = [10]
 
 device = torch.device('cpu')
 
@@ -87,8 +72,24 @@ class Network(nn.Module()):
                 print('Test Accuracy of the model on the test images: {} %'.format(100 * correct / total))
 
     if __name__ == '__main__':
+        train_set = torchvision.datasets.FashionMNIST(root='./data/FashionMNIST',
+                                                      train=True, download=True,
+                                                      transform=transforms.Compose(transforms.ToTensor()))
+        test_set = torchvision.datasets.FashionMNIST(root='./data/test/FashionMNIST',
+                                                     train=False, download=True,
+                                                     transform=transforms.Compose(transforms.ToTensor()))
+        train_loader = torch.utils.data.DataLoader(train_set, batch_size=10, shuffle=False)
+        test_loader = torch.utils.data.DataLoader(test_set, batch_size=10, shuffle=False)
+
+        batch = next(iter(train_loader))
+
+        images, labels = batch  # features and labels
+        # images.shape = [10,1,28,28]
+        # labels.shape = [10]
+
         model = train()
         test(model)
+
 
 
 
