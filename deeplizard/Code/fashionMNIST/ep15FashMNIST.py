@@ -92,18 +92,9 @@ def test(model):
             correct += (predicted == label).sum().item()
             print('Test Accuracy of the model on the test images: {} %'.format(100 * correct / total))
 
-    if __name__ == '__main__':
-        model = train()
-        test(model)
 
 
-
-
-
-
-    # def num_flat_features(self,t):
-    #     size = t.size()[1:] # all dimensions except the batch dimension
-    #     numFeatures = 1
-    #     for s in size:
-    #         numFeatures *= s
-    #     return numFeatures
+#OUT
+if __name__ == '__main__':
+    model = train()
+    test(model)
