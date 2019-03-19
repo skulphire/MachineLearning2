@@ -64,7 +64,7 @@ class Network(nn.Module):
         return t
 
 def train():
-    model = Network()
+    model = Network().to(device)
     opti = torch.optim.Adam(model.parameters(),lr = LR)
     criterion = nn.CrossEntropyLoss()
     for epoch in range(1,Train_epoch+1):
