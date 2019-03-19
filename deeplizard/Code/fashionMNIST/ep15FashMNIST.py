@@ -53,7 +53,7 @@ class Network(nn.Module):
 
     def forward(self,t):
         # Max pooling over a (2, 2) window
-        t = F.max_pool2d(F.relu(self.conv1(t)),(2,2))
+        t = F.max_pool2d(F.relu(self.conv1(t)),1)
         # If the size is a square you can only specify a single number
         t = F.max_pool2d(F.relu(self.conv2(t),2))
         t = t.view(-1,self.num_flat_features(t))
