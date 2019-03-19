@@ -8,10 +8,10 @@ import numpy as np
 
 train_set = torchvision.datasets.FashionMNIST(root='./data/FashionMNIST',
                                               train=True, download=True,
-                                              transform=transforms.Compose(transforms.ToTensor()))
+                                              transform=transforms.Compose([transforms.ToTensor()]))
 test_set = torchvision.datasets.FashionMNIST(root='./data/test/FashionMNIST',
                                              train=False, download=True,
-                                             transform=transforms.Compose(transforms.ToTensor()))
+                                             transform=transforms.Compose([transforms.ToTensor()]))
 train_loader = torch.utils.data.DataLoader(train_set, batch_size=10, shuffle=False)
 test_loader = torch.utils.data.DataLoader(test_set, batch_size=10, shuffle=False)
 
