@@ -41,7 +41,7 @@ CLASS_CLOTHING = {0 :'T-shirt/top',
 
 device = torch.device('cpu')
 
-class Network(nn.Module()):
+class Network(nn.Module):
     def __init__(self):
         super(Network, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=1,out_channels=6,kernel_size=5)
