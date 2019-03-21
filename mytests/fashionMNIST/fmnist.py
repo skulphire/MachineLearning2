@@ -73,7 +73,7 @@ def test(model):
     with torch.no_grad():
         correct = 0
         total = 0
-        for label, image in test_loader:
+        for image, label in test_loader:
             image = image.to(device)
             label = label.to(device)
             outputs = model(image)
