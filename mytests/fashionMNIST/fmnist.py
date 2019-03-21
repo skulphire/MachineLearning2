@@ -58,7 +58,7 @@ def train():
     criterion = nn.CrossEntropyLoss()
     for epoch in range(1,Train_epoch+1):
         batchID = 0
-        for (feature,label) in next(iter(train_loader)): #image and label
+        for feature,label in next(iter(train_loader)): #image and label
             label, feature = label.to(device),feature.to(device)
             output = model(feature)
             loss = criterion(output,label)
