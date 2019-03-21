@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, Dataset
 import torch.nn as nn
 
-SHUFFLE = False
+SHUFFLE = True
 BATCH_SIZE = 50
 
 LR = 0.005 #learning rate
@@ -109,7 +109,7 @@ if __name__ == '__main__':
         oldPercentage = percentage
         model = train(Train_epoch+epochIncrease)
         percentage = test(model)
-        if not (oldPercentage-percentage) < 1:
+        if not abs((oldPercentage-percentage)) < 1:
             epochIncrease = epochIncrease + int((oldPercentage-percentage)*2)
             print("Old {}%".format(oldPercentage))
             print("New {}%".format(percentage))
