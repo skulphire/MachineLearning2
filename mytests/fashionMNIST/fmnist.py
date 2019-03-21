@@ -57,7 +57,7 @@ def train():
     opti = torch.optim.Adam(model.parameters(),lr=LR)
     criterion = nn.CrossEntropyLoss()
     for epoch in range(1,Train_epoch+1):
-        for batchID, (feature,label) in batch: #image and label
+        for (feature,label) in next(iter(train_loader)): #image and label
             label, feature = label.to(device),feature.to(device)
             output = model(feature)
             loss = criterion(output,label)
@@ -81,16 +81,16 @@ if __name__ == '__main__':
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
     test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
 
-    print(train_loader[1])
+    print(train_loader)
 
-    #batch = next(iter(train_loader))
+    batch = next(iter(train_loader))
     #images, labels = batch  # features and labels
     # images.shape = [10,1,28,28]
     # labels.shape = [10]
 
     #w = images.reshape(images.size(0),-1)
     #print(w)
-    #print(batch[1])
+    print(batch[0])
     #print(batch[2]) # out of range
     #print(images[0])
     #print(images[2])
