@@ -113,7 +113,7 @@ if __name__ == '__main__':
             if(abs((oldPercentage-percentage)) < 1):
                 epochIncrease += 2
             else:
-                epochIncrease = epochIncrease + int((oldPercentage-percentage)*2)
+                epochIncrease = epochIncrease + int(abs((oldPercentage-percentage)*2))
             print("Old {}%".format(oldPercentage))
             print("New {}%".format(percentage))
             print("Epoch increased by: "+str(epochIncrease))
