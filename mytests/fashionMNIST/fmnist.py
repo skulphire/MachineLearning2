@@ -9,7 +9,7 @@ SHUFFLE = False
 BATCH_SIZE = 50
 
 LR = 0.005 #learning rate
-Train_epoch = 22
+Train_epoch = 2
 
 device = torch.device('cpu')
 
@@ -41,11 +41,11 @@ class Network(nn.Module):
             num_features *= s
         return num_features
 
-def train():
+def train(epochs = Train_epoch):
     model = Network().to(device)
     opti = torch.optim.Adam(model.parameters(),lr=LR)
     criterion = nn.CrossEntropyLoss()
-    for epoch in range(1,Train_epoch+1):
+    for epoch in range(1,epochs+1):
         for batchID,(feature,label) in enumerate(train_loader): #image and label
             label, feature = label.to(device),feature.to(device)
             output = model(feature)
@@ -68,7 +68,9 @@ def test(model):
             predicted = torch.argmax(outputs, dim=1)
             total += label.size(0)
             correct += (predicted == label).sum().item()
+            percent = 100 * correct / total
         print('Test Accuracy of the model on the test images: {} %'.format(100 * correct / total))
+    return percent
 
 if __name__ == '__main__':
     train_set = torchvision.datasets.FashionMNIST(root='./data',
@@ -101,7 +103,17 @@ if __name__ == '__main__':
 
     ############ start training and testing
     model = train()
-    test(model)
-
-
-
+    percentage = test(model)
+    epochIncrease = 2
+    while(percentage<90.1):
+        oldPercentage = percentage
+        model = train(Train_epoch+epochIncrease)
+        percentage = test(model)
+        if not (oldPercentage-percentage) < 0.5:
+            epochIncrease = int((oldPercentage-percentage)*2)
+            print("Old %".format(oldPercentage))
+            print("New %"/format(percentage))
+            print("Epoch increased by: "+epochIncrease)
+        else:
+            print("Epoch not increased, too low percentage difference")
+            break
