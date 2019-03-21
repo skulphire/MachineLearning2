@@ -88,6 +88,9 @@ if __name__ == '__main__':
     #     batch = next(iter(train_loader))
     #     print(batch[1])
 
+    batch = next(iter(train_loader))
+    print(batch)
+
     #images, labels = batch  # features and labels
     # images.shape = [10,1,28,28]
     # labels.shape = [10]
@@ -100,7 +103,7 @@ if __name__ == '__main__':
     #print(images[2])
 
     ############ start training and testing
-    model = train()
+    #model = train()
 
 
 
