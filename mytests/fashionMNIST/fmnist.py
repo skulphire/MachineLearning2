@@ -1,27 +1,15 @@
 import torchvision
 from torchvision import transforms
 import torch
-import numpy as np
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, Dataset
 import torch.nn as nn
-import pandas as pd
 
 SHUFFLE = False
 BATCH_SIZE = 10
-LR = 0.005 #learning rate
-Train_epoch = 5
 
-CLASS_CLOTHING = {0 :'T-shirt/top',
-                  1 :'Trouser',
-                  2 :'Pullover',
-                  3 :'Dress',
-                  4 :'Coat',
-                  5 :'Sandal',
-                  6 :'Shirt',
-                  7 :'Sneaker',
-                  8 :'Bag',
-                  9 :'Ankle boot'}
+LR = 0.005 #learning rate
+Train_epoch = 10
 
 device = torch.device('cpu')
 
