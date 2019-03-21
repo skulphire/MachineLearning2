@@ -57,9 +57,9 @@ class Network(nn.Module):
         # If the size is a square you can only specify a single number
         t = F.max_pool2d(F.relu(self.conv2(t)),2)
         #t = t.view(-1,self.num_flat_features(t))
-        t = F.relu(self.fc1)
-        t = F.relu(self.fc2)
-        t = F.relu(self.out)
+        t = F.relu(self.fc1(t))
+        t = F.relu(self.fc2(t))
+        t = self.out(t)
 
         return t
 
