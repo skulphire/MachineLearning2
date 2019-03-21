@@ -24,3 +24,4 @@ if __name__ == '__main__':
     # images.shape = [10,1,28,28]
     # labels.shape = [10]
     print(images.size())
+    print(labels.size())
