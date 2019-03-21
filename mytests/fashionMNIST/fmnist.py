@@ -9,6 +9,21 @@ import pandas as pd
 
 SHUFFLE = False
 BATCH_SIZE = 10
+LR = 0.005 #learning rate
+Train_epoch = 5
+
+CLASS_CLOTHING = {0 :'T-shirt/top',
+                  1 :'Trouser',
+                  2 :'Pullover',
+                  3 :'Dress',
+                  4 :'Coat',
+                  5 :'Sandal',
+                  6 :'Shirt',
+                  7 :'Sneaker',
+                  8 :'Bag',
+                  9 :'Ankle boot'}
+
+device = torch.device('cpu')
 
 if __name__ == '__main__':
     train_set = torchvision.datasets.FashionMNIST(root='./data',
@@ -25,3 +40,21 @@ if __name__ == '__main__':
     images, labels = batch  # features and labels
     # images.shape = [10,1,28,28]
     # labels.shape = [10]
+    w = images.reshape(images.size(0),-1)
+    print(w)
+
+class Network(nn.Module):
+    def __init__(self):
+        super(Network,self).__init__()
+
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=6, kernel_size=5)
+        self.conv2 = nn.Conv2d(in_channels=6, out_channels=12, kernel_size=5)
+
+        self.fc1 = nn.Linear(in_features=12 * 4 * 4, out_features=120)
+        self.fc2 = nn.Linear(in_features=120, out_features=60)
+        self.out = nn.Linear(in_features=60, out_features=10)
+
+    def forward(self, x):
+        x=F.max_pool2d(F.relu(self.conv1(x)),1)
+        x=F.max_pool2d(F.relu(self.conv2(x)),2)
+        x = x.reshape()
