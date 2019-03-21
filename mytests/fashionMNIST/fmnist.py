@@ -88,12 +88,13 @@ if __name__ == '__main__':
     # labels.shape = [10]
     #w = images.reshape(images.size(0),-1)
     #print(w)
-    #print(batch)
+    print(batch[1])
+    print(batch[2])
     #print(images[0])
     #print(images[2])
 
-    ############
-    model = train()
+    ############ start training and testing
+    #model = train()
 
 
 
