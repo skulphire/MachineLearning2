@@ -54,7 +54,7 @@ def train(epochs = Train_epoch):
             loss.backward()
             opti.step()
             if batchID % 1000 == 0:
-                print('Loss :{:.4f} Epoch[{}/{}]'.format(loss.item(), epoch, Train_epoch))
+                print('Loss :{:.4f} Epoch[{}/{}]'.format(loss.item(), epoch, epochs))
     return model
 
 def test(model):
@@ -104,15 +104,15 @@ if __name__ == '__main__':
     ############ start training and testing
     model = train()
     percentage = test(model)
-    epochIncrease = 2
+    epochIncrease = 1
     while(percentage<90.1):
         oldPercentage = percentage
         model = train(Train_epoch+epochIncrease)
         percentage = test(model)
         if not (oldPercentage-percentage) < 0.5:
-            epochIncrease = int((oldPercentage-percentage)*2)
-            print("Old %".format(oldPercentage))
-            print("New %"/format(percentage))
+            epochIncrease = epochIncrease + int((oldPercentage-percentage)*2)
+            print("Old {}%".format(oldPercentage))
+            print("New {}%".format(percentage))
             print("Epoch increased by: "+epochIncrease)
         else:
             print("Epoch not increased, too low percentage difference")
