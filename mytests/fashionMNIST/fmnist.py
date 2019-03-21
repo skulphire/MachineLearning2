@@ -87,7 +87,7 @@ if __name__ == '__main__':
     batch = next(iter(train_loader), -1)
     while(batch != -1):
         batch = next(iter(train_loader),-1)
-        print(batch[1])
+        #print(batch[1])
         count += 1
     print(count)
 
