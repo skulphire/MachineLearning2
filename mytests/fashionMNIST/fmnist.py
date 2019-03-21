@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader, Dataset
 import torch.nn as nn
 import pandas as pd
 
-SHUFFLE = True
+SHUFFLE = False
 BATCH_SIZE = 10
 LR = 0.005 #learning rate
 Train_epoch = 5
@@ -81,11 +81,20 @@ if __name__ == '__main__':
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
     test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
 
-    print(train_loader)
+    #print(train_loader)
+    count = 0
 
-    for x in range(0,10):
-        batch = next(iter(train_loader))
+    batch = next(iter(train_loader), -1)
+    while(batch != -1):
+        batch = next(iter(train_loader),-1)
         print(batch[1])
+        count += 1
+    print(count)
+
+    # works, every batch is different when iterated through train loader
+    # for x in range(0,10):
+    #     batch = next(iter(train_loader))
+    #     print(batch[1])
 
     #images, labels = batch  # features and labels
     # images.shape = [10,1,28,28]
