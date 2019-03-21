@@ -6,10 +6,10 @@ from torch.utils.data import DataLoader, Dataset
 import torch.nn as nn
 
 SHUFFLE = False
-BATCH_SIZE = 10
+BATCH_SIZE = 50
 
 LR = 0.005 #learning rate
-Train_epoch = 10
+Train_epoch = 12
 
 device = torch.device('cpu')
 
