@@ -9,7 +9,7 @@ SHUFFLE = False
 BATCH_SIZE = 50
 
 LR = 0.005 #learning rate
-Train_epoch = 12
+Train_epoch = 22
 
 device = torch.device('cpu')
 
