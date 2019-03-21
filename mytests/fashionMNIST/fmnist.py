@@ -113,7 +113,7 @@ if __name__ == '__main__':
             epochIncrease = epochIncrease + int((oldPercentage-percentage)*2)
             print("Old {}%".format(oldPercentage))
             print("New {}%".format(percentage))
-            print("Epoch increased by: "+epochIncrease)
+            print("Epoch increased by: "+str(epochIncrease))
         else:
             print("Epoch not increased, too low percentage difference")
             break
