@@ -40,7 +40,7 @@ class Network(nn.Module):
         x=F.max_pool2d(F.relu(self.conv1(x)),(2,2))
         x=F.max_pool2d(F.relu(self.conv2(x)),2)
         #x = x.reshape(x.size(0),-1)
-        x = x.view(-1, self.num_flat_features(x))
+        x = x.view(-1, self.num_flat_features(x)) #dunno wut doin
         x=F.relu(self.fc1(x))
         x=F.relu(self.fc2(x))
         x=self.out(x)
@@ -68,6 +68,19 @@ def train():
             if batchID % 1000 == 0:
                 print('Loss :{:.4f} Epoch[{}/{}]'.format(loss.item(), epoch, Train_epoch))
     return model
+
+def test(model):
+    with torch.no_grad():
+        correct = 0
+        total = 0
+        for label, image in test_loader:
+            image = image.to(device)
+            label = label.to(device)
+            outputs = model(image)
+            predicted = torch.argmax(outputs, dim=1)
+            total += label.size(0)
+            correct += (predicted == label).sum().item()
+        print('Test Accuracy of the model on the test images: {} %'.format(100 * correct / total))
 
 if __name__ == '__main__':
     train_set = torchvision.datasets.FashionMNIST(root='./data',
