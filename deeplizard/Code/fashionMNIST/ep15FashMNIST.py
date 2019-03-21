@@ -56,12 +56,19 @@ class Network(nn.Module):
         t = F.max_pool2d(F.relu(self.conv1(t)),1)
         # If the size is a square you can only specify a single number
         t = F.max_pool2d(F.relu(self.conv2(t)),2)
-        #t = t.view(-1,self.num_flat_features(t))
-        t = F.relu(self.fc1(t))
+        t = t.view(-1,self.num_flat_features(t))
+        t = F.relu(self.fc1(t)) #what is relu
         t = F.relu(self.fc2(t))
         t = self.out(t)
 
         return t
+
+    def num_flat_features(self, x):
+        size = x.size()[1:]  # all dimensions except the batch dimension
+        num_features = 1
+        for s in size:
+            num_features *= s
+        return num_features
 
 def train():
     model = Network().to(device)
