@@ -40,8 +40,10 @@ if __name__ == '__main__':
     images, labels = batch  # features and labels
     # images.shape = [10,1,28,28]
     # labels.shape = [10]
-    w = images.reshape(images.size(0),-1)
-    print(w)
+    #w = images.reshape(images.size(0),-1)
+    #print(w)
+    print(images[0])
+    print(images[2])
 
 class Network(nn.Module):
     def __init__(self):
@@ -57,4 +59,22 @@ class Network(nn.Module):
     def forward(self, x):
         x=F.max_pool2d(F.relu(self.conv1(x)),1)
         x=F.max_pool2d(F.relu(self.conv2(x)),2)
-        x = x.reshape()
+        x = x.reshape(x.size(0),-1)
+        x=F.relu(self.fc1(x))
+        x=F.relu(self.fc2(x))
+        x=self.out(x)
+        return x
+
+    def num_flat_features(self, x):
+        size = x.size()[1:]  # all dimensions except the batch dimension
+        num_features = 1
+        for s in size:
+            num_features *= s
+        return num_features
+
+# def train():
+#     model = Network().to(device)
+#     opti = torch.optim.Adam(model.parameters(),lr=LR)
+#     criterion = nn.CrossEntropyLoss()
+#     for epoch in range(1,Train_epoch+1):
+#         labels,images =
