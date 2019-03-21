@@ -42,8 +42,9 @@ if __name__ == '__main__':
     # labels.shape = [10]
     #w = images.reshape(images.size(0),-1)
     #print(w)
-    print(images[0])
-    print(images[2])
+    print(batch)
+    #print(images[0])
+    #print(images[2])
 
 class Network(nn.Module):
     def __init__(self):
