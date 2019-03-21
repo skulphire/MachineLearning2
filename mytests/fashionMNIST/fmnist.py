@@ -113,6 +113,7 @@ if __name__ == '__main__':
 
     ############ start training and testing
     model = train()
+    test(model)
 
 
 
