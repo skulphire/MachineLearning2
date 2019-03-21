@@ -25,27 +25,6 @@ CLASS_CLOTHING = {0 :'T-shirt/top',
 
 device = torch.device('cpu')
 
-if __name__ == '__main__':
-    train_set = torchvision.datasets.FashionMNIST(root='./data',
-                                                  train=True, download=True,
-                                                  transform=transforms.Compose([transforms.ToTensor()]))
-    test_set = torchvision.datasets.FashionMNIST(root='./data/test',
-                                                 train=False, download=True,
-                                                 transform=transforms.Compose([transforms.ToTensor()]))
-    train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
-    test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
-
-    batch = next(iter(train_loader))
-
-    images, labels = batch  # features and labels
-    # images.shape = [10,1,28,28]
-    # labels.shape = [10]
-    #w = images.reshape(images.size(0),-1)
-    #print(w)
-    print(batch)
-    #print(images[0])
-    #print(images[2])
-
 class Network(nn.Module):
     def __init__(self):
         super(Network,self).__init__()
@@ -73,9 +52,48 @@ class Network(nn.Module):
             num_features *= s
         return num_features
 
-# def train():
-#     model = Network().to(device)
-#     opti = torch.optim.Adam(model.parameters(),lr=LR)
-#     criterion = nn.CrossEntropyLoss()
-#     for epoch in range(1,Train_epoch+1):
-#         labels,images =
+def train():
+    model = Network().to(device)
+    opti = torch.optim.Adam(model.parameters(),lr=LR)
+    criterion = nn.CrossEntropyLoss()
+    for epoch in range(1,Train_epoch+1):
+        for batchID, (feature,label) in batch: #image and label
+            label, feature = label.to(device),feature.to(device)
+            output = model(feature)
+            loss = criterion(output,label)
+            opti.zero_grad()
+            loss.backward()
+            opti.step()
+            print("##########################")
+            print("batch: "+batchID)
+            print("##########################")
+            if batchID % 1000 == 0:
+                print('Loss :{:.4f} Epoch[{}/{}]'.format(loss.item(), epoch, Train_epoch))
+    return model
+
+if __name__ == '__main__':
+    train_set = torchvision.datasets.FashionMNIST(root='./data',
+                                                  train=True, download=True,
+                                                  transform=transforms.Compose([transforms.ToTensor()]))
+    test_set = torchvision.datasets.FashionMNIST(root='./data/test',
+                                                 train=False, download=True,
+                                                 transform=transforms.Compose([transforms.ToTensor()]))
+    train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
+    test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
+
+    batch = next(iter(train_loader))
+
+    images, labels = batch  # features and labels
+    # images.shape = [10,1,28,28]
+    # labels.shape = [10]
+    #w = images.reshape(images.size(0),-1)
+    #print(w)
+    #print(batch)
+    #print(images[0])
+    #print(images[2])
+
+    ############
+    model = train()
+
+
+
