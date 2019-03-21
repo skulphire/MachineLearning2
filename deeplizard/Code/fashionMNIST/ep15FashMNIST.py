@@ -68,7 +68,7 @@ def train():
     opti = torch.optim.Adam(model.parameters(),lr = LR)
     criterion = nn.CrossEntropyLoss()
     for epoch in range(1,Train_epoch+1):
-        for batchID, (label,image) in enumerate(train_loader):
+        for batchID, (image,label) in enumerate(train_loader):
             label,image = label.to(device), image.to(device)
             output = model(image)
             loss = criterion(output,label)
