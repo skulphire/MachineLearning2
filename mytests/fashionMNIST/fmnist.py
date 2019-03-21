@@ -81,7 +81,7 @@ if __name__ == '__main__':
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
     test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
 
-    print(train_loader)
+    print(train_loader[1])
 
     #batch = next(iter(train_loader))
     #images, labels = batch  # features and labels
