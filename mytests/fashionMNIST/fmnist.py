@@ -87,6 +87,13 @@ if __name__ == '__main__':
     print(batch[1])
     batch = next(iter(train_loader))
     print(batch[1])
+    batch = next(iter(train_loader))
+    print(batch[1])
+    batch = next(iter(train_loader))
+    print(batch[1])
+    batch = next(iter(train_loader))
+    print(batch[1])
+
     #images, labels = batch  # features and labels
     # images.shape = [10,1,28,28]
     # labels.shape = [10]
