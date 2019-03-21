@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader, Dataset
 import torch.nn as nn
 import pandas as pd
 
-SHUFFLE = False
+SHUFFLE = True
 BATCH_SIZE = 10
 LR = 0.005 #learning rate
 Train_epoch = 5
