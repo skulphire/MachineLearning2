@@ -98,7 +98,7 @@ if __name__ == '__main__':
     #print(images[2])
 
     ############ start training and testing
-    #model = train()
+    model = train()
 
 
 
