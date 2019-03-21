@@ -110,7 +110,10 @@ if __name__ == '__main__':
         model = train(Train_epoch+epochIncrease)
         percentage = test(model)
         if abs((oldPercentage-percentage)) > 1 or percentage < 90.1:
-            epochIncrease = epochIncrease + int((oldPercentage-percentage)*2)
+            if(abs((oldPercentage-percentage)) < 1):
+                epochIncrease += 2
+            else:
+                epochIncrease = epochIncrease + int((oldPercentage-percentage)*2)
             print("Old {}%".format(oldPercentage))
             print("New {}%".format(percentage))
             print("Epoch increased by: "+str(epochIncrease))
