@@ -39,7 +39,8 @@ class Network(nn.Module):
     def forward(self, x):
         x=F.max_pool2d(F.relu(self.conv1(x)),1)
         x=F.max_pool2d(F.relu(self.conv2(x)),2)
-        x = x.reshape(x.size(0),-1)
+        #x = x.reshape(x.size(0),-1)
+        x = x.view(-1, self.num_flat_features(x))
         x=F.relu(self.fc1(x))
         x=F.relu(self.fc2(x))
         x=self.out(x)
