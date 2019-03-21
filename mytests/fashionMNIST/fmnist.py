@@ -57,6 +57,7 @@ def train():
     opti = torch.optim.Adam(model.parameters(),lr=LR)
     criterion = nn.CrossEntropyLoss()
     for epoch in range(1,Train_epoch+1):
+        batchID = 0
         for (feature,label) in next(iter(train_loader)): #image and label
             label, feature = label.to(device),feature.to(device)
             output = model(feature)
@@ -67,7 +68,8 @@ def train():
             print("##########################")
             print("batch: "+batchID)
             print("##########################")
-            if batchID % 1000 == 0:
+            batchID += 1
+            if batchID == 9:
                 print('Loss :{:.4f} Epoch[{}/{}]'.format(loss.item(), epoch, Train_epoch))
     return model
 
@@ -80,16 +82,6 @@ if __name__ == '__main__':
                                                  transform=transforms.Compose([transforms.ToTensor()]))
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
     test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=SHUFFLE)
-
-    #print(train_loader)
-    count = 0
-
-    batch = next(iter(train_loader), -1)
-    while(batch != -1):
-        batch = next(iter(train_loader),-1)
-        #print(batch[1])
-        count += 1
-    print(count)
 
     # works, every batch is different when iterated through train loader
     # for x in range(0,10):
@@ -108,7 +100,7 @@ if __name__ == '__main__':
     #print(images[2])
 
     ############ start training and testing
-    #model = train()
+    model = train()
 
 
 
