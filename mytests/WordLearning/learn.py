@@ -16,7 +16,7 @@ NODE3 = 6000
 CLASSES = 2
 BATCH_SIZE = 100
 
-W = len(train_x[0])
+W = len(train_x)
 K = 1
 P = 0
 S = 1
