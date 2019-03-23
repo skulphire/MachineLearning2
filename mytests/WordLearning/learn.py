@@ -2,11 +2,13 @@ import torch
 import torchvision
 import torch.nn as nn
 import torch.nn.functional as F
-from .wordprep import *
+from wordprep import *
+import os
+
 
 device = torch.device('cpu')
 
-train_x,train_y,test_x,test_y = create_sets('/MachineLearning2/pos-neg-sentdex/pos.txt','/MachineLearning2/pos-neg-sentdex/neg.txt')
+train_x,train_y,test_x,test_y = create_sets('pos-neg-sentdex/pos.txt','/MachineLearning2/pos-neg-sentdex/neg.txt')
 
 NODE1 = 1500
 NODE2 = 3000

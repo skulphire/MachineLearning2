@@ -65,8 +65,8 @@ def create_sets(pos,neg,test_size=0.1):
 
     return train_x,train_y,test_x,test_y
 
-if __name__ == '__main__':
-    train_x,train_y,test_x,test_y = create_sets('/MachineLearning2/pos-neg-sentdex/pos.txt','/MachineLearning2/pos-neg-sentdex/neg.txt')
+# if __name__ == '__main__':
+#     train_x,train_y,test_x,test_y = create_sets('/MachineLearning2/pos-neg-sentdex/pos.txt','/MachineLearning2/pos-neg-sentdex/neg.txt')
 
     #pickle
     # with open ('set.pickle','wb') as f:
