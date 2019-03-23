@@ -8,7 +8,7 @@ import os
 
 device = torch.device('cpu')
 
-train_x,train_y,test_x,test_y = create_sets('/pos-neg-sentdex/pos.txt','/pos-neg-sentdex/neg.txt')
+train_x,train_y,test_x,test_y = create_sets('pos-neg-sentdex/pos.txt','pos-neg-sentdex/neg.txt')
 
 NODE1 = 1500
 NODE2 = 3000
