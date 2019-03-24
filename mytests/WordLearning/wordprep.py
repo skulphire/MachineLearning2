@@ -52,9 +52,6 @@ def sample_handling(sample,lexicon,classification):
 
     return featureset
 
-class posneg(torch.utils.data.Dataset):
-    def __init__(self, **kwargs):
-
 
 def create_sets(pos,neg,test_size=0.1):
     lexicon = create_lexicon(pos,neg)
