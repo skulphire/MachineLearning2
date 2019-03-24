@@ -59,6 +59,7 @@ def create_sets(pos,neg,test_size=0.1):
     features = np.array(features)
     print(features[0])
     testing_size = int(test_size*len(features))
+    print(list(features[:,0][:-testing_size]))
     train_x = list(features[:,0][:-testing_size])
     print(train_x[0])
     train_y = list(features[:, 1][:-testing_size])
