@@ -91,6 +91,7 @@ if __name__ == '__main__':
     lexicon = createlexicon()
     trainSet,testSet = createsets(lexicon)
     print(trainSet[0])
+    print(torch.tensor(trainSet)[0])
     #print(len(trainX[0]))
 
     with open ('set.pickle','wb') as f:
