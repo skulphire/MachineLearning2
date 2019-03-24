@@ -10,19 +10,20 @@ device = torch.device('cpu')
 
 train_x,train_y,test_x,test_y = createdataset()
 
-NODE1 = 1500
-NODE2 = 3000
-NODE3 = 6000
+NODE1 = 1000
+NODE2 = 2000
+NODE3 = 3000
 CLASSES = 2
 BATCH_SIZE = 100
+LR = 0.005 #learning rate
+NUM_EPOCHS = 1
 
 W = len(train_x[0])
 K = 1
 P = 0
 S = 1
 
-outsizeofnn = (W-K+2*P)/S+1
-print(W)
+outsizeofnn = ((W+2*P-K)/S)+1
 print(outsizeofnn)
 
 class Network(nn.Module):
@@ -31,9 +32,9 @@ class Network(nn.Module):
         self.conv1 = nn.Conv2d(in_channels=len(train_x[0]), out_channels=NODE1, kernel_size=1)
         self.conv2 = nn.Conv2d(in_channels=NODE1, out_channels=NODE2, kernel_size=1)
 
-        self.fc1 = nn.Linear(in_features=12 * 4 * 4, out_features=120)
-        self.fc2 = nn.Linear(in_features=120, out_features=60)
-        self.out = nn.Linear(in_features=60, out_features=10)
+        self.fc1 = nn.Linear(in_features=NODE2, out_features=500)
+        self.fc2 = nn.Linear(in_features=500, out_features=250)
+        self.out = nn.Linear(in_features=250, out_features=CLASSES)
 
     def forward(self, x):
         x = F.max_pool2d(F.relu(self.conv1(x)), (2, 2))
@@ -51,3 +52,28 @@ class Network(nn.Module):
         for s in size:
             num_features *= s
         return num_features
+
+def train(epochs = NUM_EPOCHS):
+    model = Network().to(device)
+    opti = torch.optim.Adam(model.parameters(),lr=LR)
+    criterion = nn.CrossEntropyLoss()
+    for epoch in range(1,epochs+1):
+        for batchID, (feature,label) in enumerate(train_x):
+            label,feature = label.to(device),feature.to(device)
+            output = model(feature)
+            oss = criterion(output,label)
+            opti.zero_grad()
+            loss.backward()
+            opti.step()
+            if batchID % 1000 == 0:
+                print('Loss X :{:.4f} Epoch[{}/{}]'.format(loss.item(), epoch, epochs))
+        for batchID, (feature,label) in enumerate(train_Y):
+            label,feature = label.to(device),feature.to(device)
+            output = model(feature)
+            oss = criterion(output,label)
+            opti.zero_grad()
+            loss.backward()
+            opti.step()
+            if batchID % 1000 == 0:
+                print('Loss Y :{:.4f} Epoch[{}/{}]'.format(loss.item(), epoch, epochs))
+    return model
