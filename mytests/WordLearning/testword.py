@@ -25,10 +25,10 @@ def readfiles():
 def createlexicon():
     lexicon = []
     for line in POS:
-        allwords = word_tokenize(line)
+        allwords = word_tokenize(line.lower())
         lexicon += list(allwords)
     for line in NEG:
-        allwords = word_tokenize(line)
+        allwords = word_tokenize(line.lower())
         lexicon += list(allwords)
     #print(lexicon)
     lexicon = [lemmatizer.lemmatize(x)for x in lexicon]
@@ -40,7 +40,26 @@ def createlexicon():
     print(len(lexicon2))
     return lexicon2
 
+def classify(lexicon, classification):
+    data = NEG
+    if classification[0] == 1:
+        data = POS
+    featureset = []
+
+    for line in data:
+        currentwords = word_tokenize(line.lower())
+        currentwords = [lemmatizer.lemmatize(x)for x in currentwords]
+        features = torch.zeros(len(currentwords))
+        for word in currentwords:
+            if word.lower() in lexicon:
+                index = lexicon.index(word.lower())
+                features[index] += 1
+        featureset.append([features,classification])
+        print(featureset)
+        return featureset
 
 if __name__ == '__main__':
     readfiles()
-    createlexicon()
+    lexicon = createlexicon()
+    classify(lexicon,[1,0]) # positive
+    classify(lexicon,[0,1]) # negative 
