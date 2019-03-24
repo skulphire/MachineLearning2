@@ -2,7 +2,7 @@ import torch
 import torchvision
 import torch.nn as nn
 import torch.nn.functional as F
-from wordprep import *
+from wordprep import create_sets
 import os
 
 
