@@ -1,77 +1,87 @@
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from collections import Counter
+import torch
 import numpy as np
 import random
-import pickle
-import torch
 
 lemmatizer = WordNetLemmatizer()
-hm_lines = 10000000
+#hm_lines = 10000000
 
-def create_lexicon(pos,neg):
+POS = []
+NEG = []
+
+def readfiles():
+    with open('pos-neg-sentdex/pos.txt','r') as f:
+        contents = f.readlines()
+        for line in contents:
+            POS.append(line)
+    with open('pos-neg-sentdex/neg.txt','r') as f:
+        contents = f.readlines()
+        for line in contents:
+            NEG.append(line)
+    #print(len(POS))
+    #print(len(NEG))
+
+def createlexicon():
     lexicon = []
-    with open(pos,'r') as f:
-        contents = f.readlines()
-        for l in contents[:hm_lines]:
-            all_words = word_tokenize(l)
-            lexicon += list(all_words)
+    for line in POS:
+        allwords = word_tokenize(line.lower())
+        lexicon += list(allwords)
+    for line in NEG:
+        allwords = word_tokenize(line.lower())
+        lexicon += list(allwords)
+    #print(lexicon)
+    lexicon = [lemmatizer.lemmatize(x)for x in lexicon]
+    wordcounts = Counter(lexicon)
+    lexicon2 = []
+    for word in wordcounts:
+        if 1000 > wordcounts[word] > 25:
+            lexicon2.append(word)
+    print(len(lexicon2))
+    return lexicon2
 
-    with open(neg,'r') as f:
-        contents = f.readlines()
-        for l in contents[:hm_lines]:
-            all_words = word_tokenize(l)
-            lexicon += list(all_words)
-    lexicon = [lemmatizer.lemmatize(i) for i in lexicon]
-    w_counts = Counter(lexicon)
-    l2 = []
-    for w in w_counts:
-        if 1000 > w_counts[w] > 50:
-            l2.append(w)
-    print(len(l2))
-    return l2
-
-def sample_handling(sample,lexicon,classification):
-
+def classify(lexicon, classification):
+    data = NEG
+    if classification[0] == 1:
+        data = POS
     featureset = []
 
-    with open(sample,'r') as f:
-        contents = f.readlines()
-        for l in contents[:hm_lines]:
-            current_words = word_tokenize(l.lower())
-            current_words = [lemmatizer.lemmatize(i) for i in current_words]
-            features = np.zeros(len(lexicon))
-            for word in current_words:
-                if word.lower() in lexicon:
-                    index_value = lexicon.index(word.lower())
-                    features[index_value] += 1
-
-            features = list(features)
-            featureset.append([features,classification])
-            print(featureset)
-
+    for line in data:
+        currentwords = word_tokenize(line.lower())
+        currentwords = [lemmatizer.lemmatize(x)for x in currentwords]
+        features = torch.zeros(len(lexicon))
+        for word in currentwords:
+            if word.lower() in lexicon:
+                index = lexicon.index(word.lower())
+                features[index] += 1
+        featureset.append([features,classification])
+        #print(featureset)
     return featureset
 
-
-def create_sets(pos,neg,test_size=0.1):
-    lexicon = create_lexicon(pos,neg)
+def createsets(lexicon, test_size=0.1):
     features = []
-    features += sample_handling(pos,lexicon,[1,0])
-    features += sample_handling(neg,lexicon,[0,1])
+    features += classify(lexicon,[1,0])
+    features += classify(lexicon,[0,1])
     random.shuffle(features)
     features = np.array(features)
-    #print(features[0])
     testing_size = int(test_size*len(features))
-    train_x = list(features[:,0][:-testing_size])
-    print(train_x[0])
-    train_y = list(features[:, 1][:-testing_size])
-    test_x = list(features[:, 0][-testing_size:])
-    test_y = list(features[:, 1][-testing_size:])
+    trainX = list(features[:,0][:-testing_size])
+    trainY = list(features[:,1][:-testing_size])
+    testX = list(features[:,0][-testing_size:])
+    testY = list(features[:,1][-testing_size:])
 
-    return train_x,train_y,test_x,test_y
+    return trainX,trainY,testX,testY
 
-#if __name__ == '__main__':
- #    train_x,train_y,test_x,test_y = create_sets('/MachineLearning2/pos-neg-sentdex/pos.txt','/MachineLearning2/pos-neg-sentdex/neg.txt')
+def createdataset():
+    readfiles()
+    lexicon = createlexicon()
+    return createsets
+    
 
-     #with open ('set.pickle','wb') as f:
-     #    pickle.dump([train_x,train_y,test_x,test_y],f)
+if __name__ == '__main__':
+    readfiles()
+    lexicon = createlexicon()
+    trainX,trainY,testX,testY = createsets(lexicon)
+    #print(trainX[0])
+    #print(len(trainX[0]))
