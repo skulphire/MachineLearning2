@@ -77,3 +77,6 @@ def train(epochs = NUM_EPOCHS):
             if batchID % 1000 == 0:
                 print('Loss Y :{:.4f} Epoch[{}/{}]'.format(loss.item(), epoch, epochs))
     return model
+
+if __name__ == '__main__':
+    model = train()
