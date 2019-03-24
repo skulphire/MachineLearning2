@@ -32,13 +32,13 @@ def createlexicon():
     for line in NEG:
         allwords = word_tokenize(line)
         lexicon += list(allwords)
-    print(lexicon)
+    #print(lexicon)
     for x in lexicon:
         lexicon = [lemmatizer.lemmatize(x)]
     wordcounts = Counter(lexicon)
     lexicon2 = []
     for word in wordcounts:
-        if 1000 > wordcounts[word] > 25:
+        if 1000 > wordcounts[word] > 50:
             lexicon2.append(word)
     print(len(lexicon2))
     return lexicon2
