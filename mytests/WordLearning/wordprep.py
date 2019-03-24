@@ -56,9 +56,9 @@ def create_sets(pos,neg,test_size=0.1):
     features += sample_handling(pos,lexicon,[1,0])
     features += sample_handling(neg,lexicon,[0,1])
     random.shuffle(features)
-    print(features)
+    print(features[0])
     features = np.array(features)
-    print(features)
+    print(features[0])
     testing_size = int(test_size*len(features))
     train_x = list(features[:,0][:-testing_size])
     train_y = list(features[:, 1][:-testing_size])
@@ -67,9 +67,8 @@ def create_sets(pos,neg,test_size=0.1):
 
     return train_x,train_y,test_x,test_y
 
-# if __name__ == '__main__':
-#     train_x,train_y,test_x,test_y = create_sets('/MachineLearning2/pos-neg-sentdex/pos.txt','/MachineLearning2/pos-neg-sentdex/neg.txt')
+if __name__ == '__main__':
+     train_x,train_y,test_x,test_y = create_sets('/MachineLearning2/pos-neg-sentdex/pos.txt','/MachineLearning2/pos-neg-sentdex/neg.txt')
 
-    #pickle
-    # with open ('set.pickle','wb') as f:
-    #     pickle.dump([train_x,train_y,test_x,test_y],f)
+     #with open ('set.pickle','wb') as f:
+     #    pickle.dump([train_x,train_y,test_x,test_y],f)
