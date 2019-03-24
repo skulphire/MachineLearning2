@@ -23,8 +23,6 @@ def readfiles():
     #print(len(NEG))
 
 def createlexicon():
-    print(len(POS))
-    print(len(NEG))
     lexicon = []
     for line in POS:
         allwords = word_tokenize(line)
@@ -33,12 +31,11 @@ def createlexicon():
         allwords = word_tokenize(line)
         lexicon += list(allwords)
     #print(lexicon)
-    for x in lexicon:
-        lexicon = [lemmatizer.lemmatize(x)]
+    lexicon = [lemmatizer.lemmatize(x)for x in lexicon]
     wordcounts = Counter(lexicon)
     lexicon2 = []
     for word in wordcounts:
-        if 1000 > wordcounts[word] > 50:
+        if 1000 > wordcounts[word] > 25:
             lexicon2.append(word)
     print(len(lexicon2))
     return lexicon2
