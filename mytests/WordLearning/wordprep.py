@@ -92,7 +92,7 @@ if __name__ == '__main__':
     trainSet,testSet = createsets(lexicon)
     print(trainSet[0])
     print("###############################")
-    print(torch.from_numpy(trainSet)[0])
+    print(torch.as_tensor(trainSet)[0])
     #print(len(trainX[0]))
 
     with open ('set.pickle','wb') as f:
