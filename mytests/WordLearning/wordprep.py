@@ -55,6 +55,7 @@ def classify(lexicon, classification):
             if word.lower() in lexicon:
                 index = lexicon.index(word.lower())
                 features[index] += 1
+        features = list(features)
         featureset.append([features,classification])
         #print(featureset)
     return featureset
