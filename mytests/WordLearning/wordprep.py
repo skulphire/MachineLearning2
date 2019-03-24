@@ -4,9 +4,10 @@ from collections import Counter
 import numpy as np
 import random
 import pickle
+import torch
 
 lemmatizer = WordNetLemmatizer()
-hm_lines = 100000
+hm_lines = 10000000
 
 def create_lexicon(pos,neg):
     lexicon = []
@@ -50,6 +51,10 @@ def sample_handling(sample,lexicon,classification):
         print(featureset)
 
     return featureset
+
+class posneg(torch.utils.data.Dataset):
+    def __init__(self, **kwargs):
+
 
 def create_sets(pos,neg,test_size=0.1):
     lexicon = create_lexicon(pos,neg)
