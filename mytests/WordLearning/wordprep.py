@@ -66,7 +66,7 @@ def createsets(lexicon, test_size=0.1):
     features += classify(lexicon,[1,0])
     features += classify(lexicon,[0,1])
     random.shuffle(features)
-    features = torch.tensor(features)
+    #features = torch.tensor(features)
     testing_size = int(test_size*len(features))
     #trainX = list(features[:,0][:-testing_size])
     #trainY = list(features[:,1][:-testing_size])
