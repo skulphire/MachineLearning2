@@ -56,7 +56,7 @@ def classify(lexicon, classification):
                 index = lexicon.index(word.lower())
                 features[index] += 1
         featureset.append([features,classification])
-        print(featureset)
+        #print(featureset)
     return featureset
 
 def createsets(lexicon, test_size=0.1):
@@ -77,4 +77,5 @@ if __name__ == '__main__':
     readfiles()
     lexicon = createlexicon()
     trainX,trainY,testX,testY = createsets(lexicon)
+    print(trainX[0])
     print(len(trainX[0]))
