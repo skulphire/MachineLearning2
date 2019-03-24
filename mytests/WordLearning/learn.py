@@ -4,11 +4,14 @@ import torch.nn as nn
 import torch.nn.functional as F
 from wordprep import createdataset
 import os
+import pickle
 
 
 device = torch.device('cpu')
 
-train_x,train_y,test_x,test_y = createdataset()
+#train_x,train_y,test_x,test_y = createdataset()
+with open ('set.pickle','r') as f:
+    train_x,train_y,test_x,test_y = pickle.load(f)
 
 NODE1 = 1000
 NODE2 = 2000

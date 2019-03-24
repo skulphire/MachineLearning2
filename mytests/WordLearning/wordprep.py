@@ -77,7 +77,10 @@ def createsets(lexicon, test_size=0.1):
 def createdataset():
     readfiles()
     lexicon = createlexicon()
-    return createsets(lexicon)
+    trainX,trainY,testX,testY = createsets(lexicon)
+    print(trainX[0])
+    with open ('set.pickle','wb') as f:
+        pickle.dump([trainX,trainY,testX,testY],f)
     
 
 if __name__ == '__main__':
@@ -86,3 +89,6 @@ if __name__ == '__main__':
     trainX,trainY,testX,testY = createsets(lexicon)
     #print(trainX[0])
     #print(len(trainX[0]))
+
+    with open ('set.pickle','wb') as f:
+        pickle.dump([trainX,trainY,testX,testY],f)
