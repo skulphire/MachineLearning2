@@ -76,7 +76,7 @@ def createsets(lexicon, test_size=0.1):
 def createdataset():
     readfiles()
     lexicon = createlexicon()
-    return createsets
+    return createsets(lexicon)
     
 
 if __name__ == '__main__':
