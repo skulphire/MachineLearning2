@@ -54,9 +54,9 @@ def classify(lexicon, classification):
             if word.lower() in lexicon:
                 index = lexicon.index(word.lower())
                 features[index] += 1
-        featureset.append([features,classification])
-        print(featureset)
-        return featureset
+    featureset.append([features,classification])
+    print(featureset)
+    return featureset
 
 if __name__ == '__main__':
     readfiles()
