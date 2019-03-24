@@ -1,6 +1,8 @@
 import torch
 import torchvision
+from torchvision import transforms
 import torch.nn as nn
+from torch.utils import data
 import torch.nn.functional as F
 from wordprep import createdataset
 import os
@@ -11,7 +13,10 @@ device = torch.device('cpu')
 
 #train_x,train_y,test_x,test_y = createdataset()
 with open ('set.pickle','r') as f:
-    train_x,train_y,test_x,test_y = pickle.load(f)
+    trainSet,testSet = pickle.load(f)
+
+
+trainLoader = data.DataLoader()
 
 NODE1 = 1000
 NODE2 = 2000
