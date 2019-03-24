@@ -32,9 +32,9 @@ class Network(nn.Module):
         self.conv1 = nn.Conv2d(in_channels=len(train_x[0]), out_channels=NODE1, kernel_size=1)
         self.conv2 = nn.Conv2d(in_channels=NODE1, out_channels=NODE2, kernel_size=1)
 
-        self.fc1 = nn.Linear(in_features=NODE2, out_features=500)
-        self.fc2 = nn.Linear(in_features=500, out_features=250)
-        self.out = nn.Linear(in_features=250, out_features=CLASSES)
+        self.fc1 = nn.Linear(in_features=NODE2, out_features=100)
+        self.fc2 = nn.Linear(in_features=100, out_features=50)
+        self.out = nn.Linear(in_features=50, out_features=CLASSES)
 
     def forward(self, x):
         x = F.max_pool2d(F.relu(self.conv1(x)), (2, 2))
