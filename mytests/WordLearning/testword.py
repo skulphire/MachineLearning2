@@ -32,6 +32,7 @@ def createlexicon():
     for line in NEG:
         allwords = word_tokenize(line)
         lexicon += list(allwords)
+    print(lexicon)
     for x in lexicon:
         lexicon = [lemmatizer.lemmatize(x)]
     wordcounts = Counter(lexicon)
