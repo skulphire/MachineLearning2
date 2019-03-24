@@ -47,6 +47,7 @@ def sample_handling(sample,lexicon,classification):
 
         features = list(features)
         featureset.append([features,classification])
+        print(featureset)
 
     return featureset
 
