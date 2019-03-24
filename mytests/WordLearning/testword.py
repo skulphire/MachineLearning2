@@ -2,6 +2,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from collections import Counter
 import torch
+import numpy as np
 import random
 
 lemmatizer = WordNetLemmatizer()
@@ -49,7 +50,7 @@ def classify(lexicon, classification):
     for line in data:
         currentwords = word_tokenize(line.lower())
         currentwords = [lemmatizer.lemmatize(x)for x in currentwords]
-        features = torch.zeros(len(currentwords))
+        features = np.zeros(len(currentwords))
         for word in currentwords:
             if word.lower() in lexicon:
                 index = lexicon.index(word.lower())
