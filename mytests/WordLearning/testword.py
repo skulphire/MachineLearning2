@@ -5,7 +5,7 @@ import torch
 import random
 
 lemmatizer = WordNetLemmatizer()
-hm_lines = 10000000
+#hm_lines = 10000000
 
 POS = []
 NEG = []
@@ -23,6 +23,8 @@ def readfiles():
     #print(len(NEG))
 
 def createlexicon():
+    print(len(POS))
+    print(len(NEG))
     lexicon = []
     for line in POS:
         allwords = word_tokenize(line)
