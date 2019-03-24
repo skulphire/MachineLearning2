@@ -19,8 +19,8 @@ def readfiles():
         contents = f.readlines()
         for line in contents:
             NEG.append(line)
-    print(POS[1])
-    print(NEG[2])
+    print(len(POS))
+    print(len(NEG))
 
 if __name__ == '__main__':
     readfiles()
