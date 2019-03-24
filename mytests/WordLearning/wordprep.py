@@ -46,9 +46,9 @@ def sample_handling(sample,lexicon,classification):
                     index_value = lexicon.index(word.lower())
                     features[index_value] += 1
 
-        features = list(features)
-        featureset.append([features,classification])
-        print(featureset)
+            features = list(features)
+            featureset.append([features,classification])
+            print(featureset)
 
     return featureset
 
@@ -62,9 +62,6 @@ def create_sets(pos,neg,test_size=0.1):
     features = np.array(features)
     #print(features[0])
     testing_size = int(test_size*len(features))
-    print("#########################")
-    print(features[:,0])
-    print(list(features[:,0][:-testing_size]))
     train_x = list(features[:,0][:-testing_size])
     print(train_x[0])
     train_y = list(features[:, 1][:-testing_size])
