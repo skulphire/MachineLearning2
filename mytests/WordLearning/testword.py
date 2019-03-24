@@ -50,7 +50,7 @@ def classify(lexicon, classification):
     for line in data:
         currentwords = word_tokenize(line.lower())
         currentwords = [lemmatizer.lemmatize(x)for x in currentwords]
-        features = np.zeros(len(currentwords))
+        features = torch.zeros(len(lexicon))
         for word in currentwords:
             if word.lower() in lexicon:
                 index = lexicon.index(word.lower())
