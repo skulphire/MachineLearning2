@@ -27,7 +27,7 @@ def create_lexicon(pos,neg):
     for w in w_counts:
         if 1000 > w_counts[w] > 50:
             l2.append(w)
-    # print(len(l2))
+    print(len(l2))
     return l2
 
 def sample_handling(sample,lexicon,classification):
