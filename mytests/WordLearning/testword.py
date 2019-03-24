@@ -66,10 +66,10 @@ def createsets(lexicon, test_size=0.1):
     random.shuffle(features)
     features = np.array(features)
     testing_size = int(test_size*len(features))
-    trainX = torch.tensor(torch.from_numpy(features[:,0][:-testing_size]))
-    trainY = torch.tensor(torch.from_numpy(features[:,1][:-testing_size]))
-    testX = torch.tensor(torch.from_numpy(features[:,0][-testing_size:]))
-    testY = torch.tensor(torch.from_numpy(features[:,1][-testing_size:]))
+    trainX = torch.from_numpy(features[:,0][:-testing_size])
+    trainY = torch.from_numpy(features[:,1][:-testing_size])
+    testX = torch.from_numpy(features[:,0][-testing_size:])
+    testY = torch.from_numpy(features[:,1][-testing_size:])
 
     return trainX,trainY,testX,testY
 
@@ -77,4 +77,4 @@ if __name__ == '__main__':
     readfiles()
     lexicon = createlexicon()
     trainX,trainY,testX,testY = createsets(lexicon)
-    print(trainX[0])
+    print(len(trainX[0]))
