@@ -2,6 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\mytests",
+    "\\mytests\\fashionMNIST",
     "\\mytests\\WordLearning"
   ],
   "SelectedNode": "\\mytests\\WordLearning\\learn.py",

@@ -7,7 +7,6 @@ import random
 import pickle
 
 lemmatizer = WordNetLemmatizer()
-#hm_lines = 10000000
 
 POS = []
 NEG = []
@@ -41,52 +40,3 @@ def createlexicon():
             lexicon2.append(word)
     print(len(lexicon2))
     return lexicon2
-
-def classify(lexicon, classification):
-    data = NEG
-    if classification[0] == 1:
-        data = POS
-    featureset = []
-
-    for line in data:
-        currentwords = word_tokenize(line.lower())
-        currentwords = [lemmatizer.lemmatize(x)for x in currentwords]
-        features = torch.zeros(len(lexicon))
-        for word in currentwords:
-            if word.lower() in lexicon:
-                index = lexicon.index(word.lower())
-                features[index] += 1
-        features = torch.tensor(features)
-        featureset.append([features,classification])
-        #print(featureset)
-    return featureset
-
-def createsets(lexicon, test_size=0.1):
-    features = []
-    features += classify(lexicon,[1,0])
-    features += classify(lexicon,[0,1])
-    random.shuffle(features)
-    #features = torch.tensor(features)
-    testing_size = int(test_size*len(features))
-    #trainX = list(features[:,0][:-testing_size])
-    #trainY = list(features[:,1][:-testing_size])
-    #testX = list(features[:,0][-testing_size:])
-    #testY = list(features[:,1][-testing_size:])
-    #trainSet = list(features[:-testing_size])
-    #testSet = list(features[-testing_size:])
-    trainSet = torch.tensor(features[:-testing_size])
-    testSet = torch.tensor(features[-testing_size:])
-    return trainSet,testSet
-    
-
-if __name__ == '__main__':
-    readfiles()
-    lexicon = createlexicon()
-    trainSet,testSet = createsets(lexicon)
-    print(trainSet[0])
-    print("###############################")
-    #print(torch.as_tensor(trainSet)[0])
-    #print(len(trainX[0]))
-
-    with open ('set.pickle','wb') as f:
-       pickle.dump([trainSet,testSet],f)
