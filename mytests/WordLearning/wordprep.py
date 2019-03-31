@@ -62,7 +62,7 @@ def classify(lexicon):
             if word.lower() in lexicon:
                 index = lexicon.index(word.lower())
                 features[index] += 1
-        featureset.append([features,[1,0]])
+        featureset.append([features.tolist,[1,0]])
     return featureset
 
 if __name__ == '__main__':
