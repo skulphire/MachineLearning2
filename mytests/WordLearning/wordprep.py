@@ -52,7 +52,7 @@ def classify(lexicon):
             if word.lower() in lexicon:
                 index = lexicon.index(word.lower())
                 features[index] += 1
-        featureset.append([features,[0,1]])
+        featureset.append([features.tolist(),[0,1]])
 
     for line in POS:
         currentwords = word_tokenize(line.lower())
