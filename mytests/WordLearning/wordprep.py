@@ -23,6 +23,7 @@ def readfiles():
     #print(len(POS))
     #print(len(NEG))
 
+
 def createlexicon():
     lexicon = []
     for line in POS:
@@ -40,3 +41,32 @@ def createlexicon():
             lexicon2.append(word)
     print(len(lexicon2))
     return lexicon2
+
+def classify(lexicon):
+    featureset = []
+    for line in NEG:
+        currentwords = word_tokenize(line.lower())
+        currentwords = [lemmatizer.lemmatize(x) for x in currentwords]
+        features = np.zeros(len(lexicon))
+        for word in currentwords:
+            if word.lower() in lexicon:
+                index = lexicon.index(word.lower())
+                features[index] += 1
+        featureset.append([features,[0,1]])
+
+    for line in POS:
+        currentwords = word_tokenize(line.lower())
+        currentwords = [lemmatizer.lemmatize(x) for x in currentwords]
+        features = np.zeros(len(lexicon))
+        for word in currentwords:
+            if word.lower() in lexicon:
+                index = lexicon.index(word.lower())
+                features[index] += 1
+        featureset.append([features,[1,0]])
+    return featureset
+
+if __name__ == '__main__':
+    readfiles()
+    lexicon = createlexicon()
+    set = classify(lexicon)
+    print(set[0])
